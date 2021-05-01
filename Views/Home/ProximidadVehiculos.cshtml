@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "ProximidadVehiculos";
+}
+
+<div class="row" style="background: bottom;border: none;margin: 20px" >
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+        <div class="card" style="margin-top: 20px;text-align: center;background: white;margin-top: 100px;">
+            <div style="padding:20px">
+                <h4 class="card-body" style="font-size: 30px; font-weight: 700; text-align: initial; color: royalblue;">Proximidad de Vehiculos </h4>
+                <p class="card-text" style="font-weight: 500;text-align: initial; padding: 20px;color: unset;">
+                    Los usuarios podrán ver los próximos vehículos que pasarán por
+                    la parada en la que esté posicionado (o una que seleccione), y si tienen un pasaje reservado para el
+                    recorrido que está haciendo ese vehículo, el sistema lo marcará con un color diferencial.
+                </p>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+
+
+                        <!-- Lista las paradas -->
+                        <div class="card" style="margin-top:20px;text-align:center">
+                            <h5 class="card-header" style="color: royalblue;">Paradas  </h5>
+
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+
+                                        <ul class="list-group" style="height:40vh;overflow-y:auto;">
+
+                                            <!-- Foreach de paradas  -->
+                                            <!-- parada donde se encuentra  -->
+
+                                            @if (ViewBag.paradas != null)
+                                            {
+                                                @foreach (var item in ViewBag.paradas)
+                                                {
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <div style="font-weight:600;">
+                                                            <img class="d-block" width="70" height="50" src="~/img/parada2.jpg" alt="">
+                                                            @item.nombre
+                                                        </div>
+
+                                                        <a class="btn btn-info" id="agregar" asp-action="VehiculosPorParada" asp-route-id="@item.idParada"><i class="fas fa-angle-right"></i></a>
+                                                    </li>
+                                                    <hr/>
+                                                }
+
+
+                                            }
+                                            else
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center" style="font-weight:600;">
+                                                    No hay paradas en el sistema.
+                                                </li>
+
+                                            }
+
+                                        </ul>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

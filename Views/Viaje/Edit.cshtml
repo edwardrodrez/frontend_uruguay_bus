@@ -1,0 +1,55 @@
+﻿@model Models.Entities.Viaje
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<center>
+    <br />
+    <div class="card" style="max-width: 50.5em; background: bottom; border: none; margin: 20px">
+        <div class="form-row" style="background: white;margin-top: 100px;">
+            <div class="card-body" style="display:flex;align-items:center;justify-content:space-between">
+                <h4 class="card-title" style="text-align: center;width: 100%;color:dodgerblue">Agregar Nueva Linea</h4>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row" style=" display: flex; align-items: center; justify-content: center;">
+        <div class="" style="min-width: 40vh; border: 1px solid gray; padding: 20px; background: white">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="idViaje" class="control-label" style="display:flex"></label>
+                    <input asp-for="idViaje" class="form-control" />
+                    <span asp-validation-for="idViaje" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="estado" /> @Html.DisplayNameFor(model => model.estado)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="fechaInicial" class="control-label" style="display:flex"></label>
+                    <input asp-for="fechaInicial" class="form-control" />
+                    <span asp-validation-for="fechaInicial" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="fechaFinal" class="control-label" style="display:flex"></label>
+                    <input asp-for="fechaFinal" class="form-control" />
+                    <span asp-validation-for="fechaFinal" class="text-danger"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <a asp-action="ListarViajes" class="btn btn-secondary ">Volver</a>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</center>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

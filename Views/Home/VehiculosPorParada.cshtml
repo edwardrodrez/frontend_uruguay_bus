@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewData["Title"] = "VehiculosPorParada";
+}
+
+<div class="row" style="background: bottom;border: none;margin: 20px">
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+        <div class="card" style="margin-top: 20px;text-align: center;background: white;margin-top: 100px;">
+            <div style="padding:20px">
+                <div style="display:flex;justify-content:space-between;align-content:center">
+                    <h4 class="card-body" style="font-size: 30px; font-weight: 700; text-align: initial; color: royalblue;">Vehiculos que estan por Pasar. </h4>
+                    <a class="btn btn-info" id="volver" asp-action="ProximidadVehiculos" style=" display: table; margin-top: 20px;">Volver</a>
+                </div>
+               
+                <div class="card" style="border: none;display: flex;align-items: center;justify-content: space-between;flex-direction: row;">
+
+                    <p class="card-text" style="font-weight: 500;text-align: initial; padding: 20px;color: unset;">
+                        Los usuarios podrán ver los próximos vehículos que pasarán por
+                        la parada en la que esté posicionado (o una que seleccione), y si tienen un pasaje reservado para el
+                        recorrido que está haciendo ese vehículo, el sistema lo marcará con un color diferencial.
+                    </p>
+                </div>
+
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+
+
+
+                        <div class="card" style="margin-top:20px;text-align:center">
+                            <h5 class="card-header" style="color: royalblue;">Proximos Vehiculos que estan por pasar </h5>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12" style=" overflow-y: auto; height: 40vh;">
+
+                                        <!-- Lista los vehiculos que pasan por esa parada -->
+                                        @if (ViewBag.vehiculos.Count == 0)
+                                        {
+                                            <div class="card text-black bg-light mb-3">
+                                                <div class="card-header">No hay Vehiculos por Pasar</div>
+                                                <div class="card-body text-black">
+                                                    <p class="card-text">Por favor seleccione otra parada.</p>
+                                                </div>
+                                            </div>
+
+                                        }
+                                        else
+                                        {
+                                            @foreach (var ve in ViewBag.vehiculos)
+                                            {
+                                                @if (ve.pasaje == true)
+                                                {
+                                                    <div class="card text-white  mb-3" style="background-color:steelblue">
+                                                        <div class="card-header">Recorrido : @ve.nombre</div>
+                                                        <div class="card-body text-white">
+                                                            <h5 class="card-title">RESERVADO </h5>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                }
+                                                else
+                                                {
+                                                    <div class="card text-black bg-light mb-3">
+                                                        <div class="card-header">Recorrido : @ve.nombre</div>
+                                                        <div class="card-body text-black">
+                                                            <p class="card-text">SIN RESERVA</p>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                }
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

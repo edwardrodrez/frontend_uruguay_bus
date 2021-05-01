@@ -1,0 +1,126 @@
+﻿@model Models.Entities.Viaje
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<center>
+    <br />
+    <div class="card" style="max-width: 50.5em; background: bottom; border: none; margin: 20px">
+        <div class="form-row" style="background: white;margin-top: 100px;">
+            <div class="card-body" style="display:flex;align-items:center;justify-content:space-between">
+                <h4 class="card-title" style="text-align: center;width: 100%;color:dodgerblue">Agregar Vehiculo Nuevo</h4>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div class="row" style=" display: flex; align-items: center; justify-content: center;">
+        <div class="" style="max-width: 50.5em; border: 1px solid gray; padding: 20px; background: white">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="fechaInicial" class="control-label" style="display:flex"></label>
+                    <input asp-for="fechaInicial" class="form-control" />
+                    <span asp-validation-for="fechaInicial" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="fechaFinal" class="control-label" style="display:flex"></label>
+                    <input asp-for="fechaFinal" class="form-control" />
+                    <span asp-validation-for="fechaFinal" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label">Horarios </label>
+                    <select name="idHorario" class="form-control" asp-items="ViewBag.HorariosList">
+                        <option value="">-- Select Horarios --</option>
+                    </select>
+                    @Html.ValidationMessage("dias", new { @class = "label label-danger" })
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Dias</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" onclick="updateSelec('Lunes')" name="Selected[0].Selected">
+                        <label class="form-check-label">Lunes</label>
+                        <input type="hidden" name="Selected[0].Value" value="Lunes">
+                        <input type="hidden" name="Selected[0].Text" value="Lunes">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" onclick="updateSelec('Martes')" name="Selected[1].Selected">
+                        <label class="form-check-label">Martes</label>
+                        <input type="hidden" name="Selected[1].Value" value="Martes">
+                        <input type="hidden" name="Selected[1].Text" value="Martes">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" onclick="updateSelec('Miercoles')" name="Selected[2].Selected">
+                        <label class="form-check-label">Miercoles</label>
+                        <input type="hidden" name="Selected[2].Value" value="Miercoles">
+                        <input type="hidden" name="Selected[2].Text" value="Miercoles">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" onclick="updateSelec('Jueves')" name="Selected[3].Selected">
+                        <label class="form-check-label">Jueves</label>
+                        <input type="hidden" name="Selected[3].Value" value="Jueves">
+                        <input type="hidden" name="Selected[3].Text" value="Jueves">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" onclick="updateSelec('Viernes')" name="Selected[4].Selected">
+                        <label class="form-check-label">Viernes</label>
+                        <input type="hidden" name="Selected[4].Value" value="Viernes">
+                        <input type="hidden" name="Selected[4].Text" value="Viernes">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" onclick="updateSelec('Sabado')" name="Selected[5].Selected">
+                        <label class="form-check-label">Sabado</label>
+                        <input type="hidden" name="Selected[5].Value" value="Sabado">
+                        <input type="hidden" name="Selected[5].Text" value="Sabado">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" onclick="updateSelec('Domingo')" name="Selected[6].Selected">
+                        <label class="form-check-label">Domingo</label>
+                        <input type="hidden" name="Selected[6].Value" value="Domingo">
+                        <input type="hidden" name="Selected[6].Text" value="Domingo">
+                    </div>
+
+                </div>
+                @Html.ValidationMessage("horario", new { @class = "label label-danger" })
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section scripts {
+
+        <script type='text/javascript'>
+
+
+    function updateSelec(v) {
+
+        console.log(v);
+
+             $.ajax({
+                     type: "POST",
+                     url: '@Url.Action("updateSelec", "Viaje")',
+                    data:  JSON.stringify(v) ,
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     success: function() {
+                            // Alert that it was succesful!
+                            alert('TempData Updated');
+                     }
+             });
+         }
+
+        </script>
+    }
+    </center>

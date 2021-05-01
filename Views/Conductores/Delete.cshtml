@@ -1,0 +1,17 @@
+﻿
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Esta seguro que desea quitar el Rol de Conductor?</h3>
+<form asp-action="Delete">
+    @if (@ViewBag.id != null)
+    {
+        <input type="text" name="idusuario" id="idusuario" value="@ViewBag.id" hidden class="form-control">
+        <input type="submit" value="Confirmar" class="btn btn-danger" />
+    }
+</form>-

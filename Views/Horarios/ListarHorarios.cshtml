@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Models.Entities.Horario>
+
+@{
+    ViewData["Title"] = "ListarHorarios";
+}
+
+<br />
+<div class="card" style="background: bottom; border: none; margin: 20px">
+    <div class="form-row" style="background: white;margin-top: 100px;">
+        <div class="card-body" style="display:flex;align-items:center;justify-content:space-between">
+            <h4 class="card-title">Lista de Horarios en la Empresa</h4>
+            <a asp-action="Create" class="btn btn-info">Añadir Horario</a>
+        </div>
+    </div>
+</div>
+<br />
+<div class="table-responsive" style="margin:20px">
+    <table class="table table-bordered table-condensed table-striped table-hover sortable" style="width:95%">
+        <thead style="background: royalblue; color: white;">
+            <tr style="text-align:center">
+                <th>
+                    @Html.DisplayNameFor(model => model.hora)
+                </th>
+                <th>
+                    Linea
+                </th>
+                <th>
+                    Vehiculo
+                </th>
+                <th>
+                    Conductor
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No hay Horarios creados.</td>
+            </tr>
+        }
+        else
+        {
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="background:white">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.hora.TimeOfDay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.linea.nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.vehiculo.matricula)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.usuario.FullName)
+                        </td>
+                        <td>
+                            <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.idHorario"><i class="fa fa-marker fa-lg"></i></a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.idHorario" class="text-danger ml-1"><i class="fa fa-trash-alt fa-lg"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        }
+    </table>
+</div>

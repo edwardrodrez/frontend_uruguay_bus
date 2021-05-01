@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UruguayBus</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://kit.fontawesome.com/d2e9cc5742.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin="" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+<body id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background: ghostwhite;">
+        <a class="navbar-brand js-scroll-trigger" style="color: midnightblue;" asp-area="" asp-controller="Home" asp-action="Index">Uruguay Bus</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item active">
+                    <a class="nav-link" style="color:black" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:black" href="@Url.Action("ComienzoDeViaje", "Control")">
+                        Comienzo del Viaje
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:black" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Control
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" style="color:black" href="@Url.Action("AsignarRoles", "Control")">
+                            Asignacion de Roles
+                        </a>
+
+                        <a class="dropdown-item" style="color:black" href="@Url.Action("PanelDeControlVehiculos", "Control")">
+                            Panel de Control de Vehiculos
+                        </a>
+
+                        <a class="dropdown-item" style="color:black" href="@Url.Action("VerificadorDePasajes", "Control")">
+                            Verificador de Pasaje
+                        </a>
+
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:black" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Reportes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" style="color:black" href="@Url.Action("PasajesVendidos", "Reporte")">
+                            Ventas de Pasajes
+                        </a>
+
+                        <a class="dropdown-item" style="color:black" href="@Url.Action("EstadisticasViajes", "Reporte")">
+                            Estadisticas de Viajes
+                        </a>
+
+
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:black" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestion de
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" style="color:black" href="@Url.Action("ListarVehiculos", "Vehiculo")">
+                            Vehiculos
+                        </a>
+
+                        <a class="dropdown-item" style="color:black" href="@Url.Action("ListarViajes", "Viaje")">
+                            Viajes
+                        </a>
+
+
+                        <a class="dropdown-item" style="color:black" href="@Url.Action("ListarHorarios", "Horarios")">
+                            Horarios
+                        </a>
+
+                        <a class="dropdown-item" style="color:black" href="@Url.Action("ListarLineas", "Linea")">
+                            Lineas
+                        </a>
+
+                        <a class="dropdown-item" style="color:black" href="@Url.Action("ListarParadas", "Paradas")">
+                            Paradas
+                        </a>
+
+
+                    </div>
+                </li>
+            </ul>
+            <partial name="_LoginPartial" />
+        </div>
+    </nav>
+    <div class="contenido">
+        <main role="main">
+
+            <header class="masthead" style="height:1600px">
+
+                @RenderBody()
+
+
+            </header>
+
+            <!-- Bootstrap core JS-->
+            <div class="footer bg-light small text-center text-black-50" style="display:flex;justify-content:center;">
+                <div class="container" style="text-align:center;color:black">
+                    &copy; 2020 - UruguayBus - UTEC - ProyectoNET
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+
+    @section scripts {
+
+        <script>
+
+            $(document).ready(function () {
+                $("button").tooltip();
+            });
+
+        </script>
+
+    }
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

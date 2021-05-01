@@ -1,0 +1,97 @@
+﻿@model Models.Entities.DtoComprarPasaje;
+@{
+    ViewData["Title"] = "SeleccionarViaje";
+}
+
+<center>
+    <div class="card text-white bg-dark" style="max-width: 80.5em;margin-top:6vh">
+        <div class="card-body">
+            <h4 class="card-title" style="text-align: initial; font-family: fantasy; font-size: 2rem;">Seleccionar Viaje</h4>
+            <p class="card-text" style="text-align: initial;">Selecciona el viaje que prefieras, de la linea que prefieras y cuando prefieras.Aca estamos poniendo un poco de texto relleno.</p>
+        </div>
+    </div>
+    <div class="card" style="max-width: 80.5em;margin: 0 auto;padding: 20px; margin-top: 20px;text-align: initial;">
+        <div class="card-header">
+            Listado de Viajes
+        </div>
+
+        <div class="listado-viajes" style="height:400px;overflow-y:auto">
+            <!-- Esto es un Viaje , precio , el dia , los asientos que tiene disponibles para que elija uno-->
+            @foreach (Models.Entities.DtoViajePrecio item in ViewBag.viajes)
+            {
+                <div class="card" style="margin-top:20px">
+                    <div class="card-header" style="display: flex; align-items: center; justify-content: space-between;">
+                        Linea: @item.viaje.Horario.linea.nombre   Precio:@item.precio
+                        <p class="text-muted">Horario: @item.viaje.Horario.hora.TimeOfDay</p>
+                    </div>
+                    @{TempData["precio"] = @item.precio;
+                      TempData["idViaje"] = item.viaje.idViaje;}
+                    <div class="card-body" style=" display: flex; align-items: center; justify-content: space-between;">
+                        <form name="comprar" asp-action="process_payment" method="POST">
+                            <div>
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer">Asientos Disponibles <cite title="Source Title"></cite></footer>
+                                </blockquote>
+                                <div class="col-auto my-1">
+                                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                                    <div class="form-group">
+
+                                        @if (item.viaje.asientos != null)
+                                        {
+                                            <select runat="server" onchange="updateTempData(this.value)" name="idAsiento" class="form-control" asp-items="@(new SelectList(item.viaje.asientos, "idAsiento", "nroAsiento"))">
+                                                <option value="">-- Selecione una parada--</option>
+                                            </select>
+
+                                        }
+                                        else
+                                        {<p>No hay asientos disponibles</p>}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <script src="https://www.mercadopago.com.uy/integrations/v1/web-tokenize-checkout.js"
+                                    data-public-key="TEST-8e9bde45-0abc-400d-9b25-4d0e550fed7d"
+                                    data-transaction-amount="@item.precio">
+                                <input id="idAsiento" name="payerFirstName" type="hidden" value="Nome"/>
+
+                            </script>
+                        </form>
+                    </div>
+                </div>
+            }
+            <!--*-->
+
+
+        </div>
+        
+
+    </div>
+
+</center>
+@section scripts
+{
+    
+<script type='text/javascript'>
+   
+       
+    function updateTempData(v) {
+        
+        console.log(v);
+       
+             $.ajax({
+                     type: "POST",
+                     url: '@Url.Action("SetTempData", "Home")',
+                    data:  JSON.stringify(v) ,
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     success: function() {
+                            // Alert that it was succesful!
+                            alert('TempData Updated');
+                     }
+             });
+         }
+   
+    </script>
+}
+

@@ -1,0 +1,120 @@
+﻿@model IEnumerable<Models.Entities.DtoViajeControl>
+@{
+    ViewData["Title"] = "PanelDeControlVehiculos";
+}
+
+<div class="row" style="background: bottom;border: none;margin: 20px">
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+        <div class="card" style="margin-top: 20px;text-align: center;background: white;margin-top: 100px;">
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                        <h3 class="card-title">Panel de Control de Vehiculos de la Empresa</h3>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+        <div class="card text-black bg-light" style="text-align:center;margin:30px">
+
+
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-8">
+                        <!-- Mapa de todos los vehiculos del sistema -->
+
+                        <div class="card" style="width: 100%"> <div id="myMap" style="height:500px"></div></div>
+
+                    </div>
+
+                    @section scripts {
+
+                        <script>
+                                const tilesProvider = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+
+                                //CREAMOS EL MAPA
+                                let myMap = L.map('myMap').setView([-32.522779, -55.765835], 7)
+                                            L.tileLayer(tilesProvider, {
+                                                maxZoom: 10,
+
+                                            }).addTo(myMap)
+                            //MUETRO PARADAS
+                        var paradas = @Html.Raw(Json.Serialize(ViewBag.paradas));
+                        for (var i = 0; i < paradas.length; i++) {
+                            var subs = paradas[i].geoReferencia.split(';');
+                            let iconParada = L.icon({ iconUrl: '@Url.Content("/img/parada.png")', iconSize: [20, 40], iconAnchor: [40, 60] })
+                            let marcaParada = new L.marker([subs[0], subs[1]], { icon: iconParada }).addTo(myMap)
+                            marcaParada.bindPopup(paradas[i].nombre).openPopup();
+                         };
+                         //MUESTRO VEHICULOS
+                         var vehiculos = @Html.Raw(Json.Serialize(ViewBag.viajes));
+                            for (var i = 0; i < vehiculos.length; i++) {
+                            var subs = vehiculos[i].localisacion.split(';');
+                            let iconBus = L.icon({iconUrl: '@Url.Content("/img/vehiculo.png")', iconSize: [20, 20],iconAnchor: [30, 30]})
+                            let marcaBus = new L.marker([subs[0], subs[1]], { icon: iconBus }).addTo(myMap)
+                             marcaBus.bindPopup(vehiculos[i].nombre).openPopup();
+                         }
+                         myMap.doubleClickZoom.disable()
+
+
+                        </script>
+
+
+
+                    }
+
+                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-4">
+
+                        <div class="card text-white bg-dark " style="text-align:center">
+                            <h5 class="card-header">Vehiculos</h5>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <!-- Filtrado de vehiculos -->
+                                        <input type="text" id="filtrarparada" class="form-control" placeholder="Filtrar">
+                                    </div>
+
+                                </div>
+
+                                <ul class="list-group" style="height:375px;overflow-y:auto;border-bottom:1px solid gray;color:black">
+
+                                    <!-- Foreach de vehiculos  -->
+                                    <!-- listado vehiculos -->
+                                    @foreach (Models.Entities.DtoViajeControl con in ViewBag.viajes)
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            @con.nombre
+                                            <form asp-action="SiguienteParada">
+                                                <input type="text" name="id" id="idusuario" value="@con.idviaje" hidden class="form-control">
+                                                <input type="submit" value="Confirmar" class="btn btn-danger" />
+                                            </form>
+                                        </li>
+                                    }
+
+                                    <!-- cierra foreach -->
+
+
+
+                                </ul>
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

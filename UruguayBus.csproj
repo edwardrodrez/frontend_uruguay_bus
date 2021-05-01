@@ -1,0 +1,84 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-UruguayBus-E8E55662-D3E3-4E4B-BA05-73CCD0B3CC85</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Reporte\EstadisticasViajes.cshtml" />
+    <Content Remove="Views\Reporte\PasajesVendidos.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\img\bg-masthead.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\bg-signup.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\bus2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\demo-image-01.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\demo-image-02.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\favicon.ico" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\ipad.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\parada2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\ruta.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\ruta2.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\ruta3.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\ruta4.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Horarios\Create.cshtml" />
+    <None Include="Views\Horarios\Delete.cshtml" />
+    <None Include="Views\Horarios\Edit.cshtml" />
+    <None Include="Views\Horarios\ListarHorarios.cshtml" />
+    <None Include="Views\Linea\addParada.cshtml" />
+    <None Include="Views\Linea\addPrecios.cshtml" />
+    <None Include="Views\Linea\Create.cshtml" />
+    <None Include="Views\Linea\Delete.cshtml" />
+    <None Include="Views\Linea\Edit.cshtml" />
+    <None Include="Views\Linea\ListarLineas.cshtml" />
+    <None Include="Views\Linea\VerParadas.cshtml" />
+    <None Include="Views\Linea\VerPrecios.cshtml" />
+    <None Include="Views\Paradas\Create.cshtml" />
+    <None Include="Views\Paradas\Delete.cshtml" />
+    <None Include="Views\Paradas\Edit.cshtml" />
+    <None Include="Views\Paradas\ListarParadas.cshtml" />
+    <None Include="Views\Reporte\EstadisticasViajes.cshtml" />
+    <None Include="Views\Reporte\PasajesVendidos.cshtml" />
+    <None Include="Views\Vehiculo\Create.cshtml" />
+    <None Include="Views\Vehiculo\Delete.cshtml" />
+    <None Include="Views\Vehiculo\Edit.cshtml" />
+    <None Include="Views\Vehiculo\ListarVehiculos.cshtml" />
+    <None Include="wwwroot\js\html5-qrcode.min.js" />
+    <None Include="wwwroot\js\jquery-1.9.1.min.js" />
+    <None Include="wwwroot\js\site.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.4.1" />
+    <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.10" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.6.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\img\parada.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\vehiculo.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Models.Entities.Linea>
+
+@{
+    ViewData["Title"] = "ListarLineas";
+}
+
+<br />
+<div class="card" style="background: bottom; border: none; margin: 20px">
+    <div class="form-row" style="background: white;margin-top: 100px;">
+        <div class="card-body" style="display:flex;align-items:center;justify-content:space-between">
+            <h4 class="card-title">Lista de Lineas en la Empresa</h4>
+            <a asp-action="Create" class="btn btn-info">Añadir Linea</a>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="table-responsive" style="margin:20px">
+    <table class="table table-bordered table-condensed table-striped table-hover sortable" style="width:95%">
+        <thead style="background: royalblue; color: white;">
+            <tr style="text-align:center">
+                <th>
+                    @Html.DisplayNameFor(model => model.nombre)
+                </th>
+                <th>
+                    Sus Paradas
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No hay Lineas creadas.</td>
+            </tr>
+        }
+        else
+        {
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="background:white">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nombre)
+                        </td>
+                        <td>
+                            <a class="btn btn-secondary" asp-action="VerParadas" asp-route-id="@item.idLinea">Ver Paradas<br></a>
+                        </td>
+                        <td>
+                            <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.idLinea"><i class="fa fa-marker fa-lg"></i></a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.idLinea"><i class="fa fa-trash-alt fa-lg"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
+    </table>
+</div>
+
+

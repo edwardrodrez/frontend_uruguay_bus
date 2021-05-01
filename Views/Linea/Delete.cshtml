@@ -1,0 +1,43 @@
+﻿@model Models.Entities.Linea
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<center>
+    <br />
+    <div class="card" style="max-width: 50.5em; background: bottom; border: none; margin: 20px">
+        <div class="form-row" style="background: white;margin-top: 100px;">
+            <div class="card-body" style="display:flex;align-items:center;justify-content:space-between">
+                <h4 class="card-title" style="text-align: center;width: 100%;color:tomato">Eliminar Linea</h4>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row" style=" display: flex; align-items: center; justify-content: center;">
+        <div class="" style="min-width: 40vh; border: 1px solid gray; padding: 20px; background: white">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.idLinea)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.idLinea)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.nombre)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.nombre)
+                </dd>
+            </dl>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <a asp-action="ListarLineas" class="btn btn-secondary ">Volver al Listar</a>
+                </div>
+                <div class="form-group col-md-6">
+                    <a asp-action="Delete2" asp-route-id="@ViewBag.id" class="btn btn-danger">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</center>

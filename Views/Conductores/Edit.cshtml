@@ -1,0 +1,29 @@
+﻿
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Conductor</h4>
+<hr />
+<form asp-action="Edit">
+
+        <div class="form-group col-md-12">
+            <label for="fechalibreta">Fecha de Libreta de Conducir</label>
+            <input type="date" name="fechalibreta" id="fechalibreta" class="form-control">
+        </div>
+
+    @if (@ViewBag.id != null)
+    {
+        <input type="text" name="idusuario" id="idusuario" value="@ViewBag.id" hidden class="form-control">
+        <input type="submit" value="Confirmar" class="btn btn-danger" />
+    }
+
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

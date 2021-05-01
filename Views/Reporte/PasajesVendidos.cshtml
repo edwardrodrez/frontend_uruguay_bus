@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewData["Title"] = "PasajesVendidos";
+}
+<style>
+    .content-section1 {
+        display: none;
+    }
+    .content-section2 {
+        display: none;
+    }
+    .content-section3 {
+        display: none;
+    }
+</style>
+<div class="row" style="background: bottom;border: none;margin: 20px">
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+        <div class="card" style="margin-top: 20px;text-align: center;background: white;margin-top: 100px;">
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                        <!-- FILTRADO POR FECHAS -->
+                        <div class="row">
+                            <div class="form-row col-12 col-lg-6 col-md-6 col-sm-12 col-xl-8" style="padding: 20px;">
+                                <h6>Filtrar por Periodos</h6>
+                            </div>
+                            <div class="form-group col-12 col-lg-2 col-md-2 col-sm-12 col-xl-2">
+                                <label for="fechainicial">Fecha Inicial</label>
+                                <input type="date" id="fechainicial" value="2018-01-08" class="form-control">
+                            </div>
+                            <div class="form-group col-12 col-lg-2 col-md-2 col-sm-12 col-xl-2">
+                                <label for="fechalfinal">Fecha Final</label>
+                                <input type="date" id="fechalfinal" value="2019-12-14" class="form-control">
+                            </div>
+
+
+                            @section scripts {
+                                <script>
+                                    $(function () {
+                                        $("#section3").show();
+                                        $("#lin").on("click", function () {
+                                            $("#section2").hide();
+                                            $("#section3").hide();
+                                            $("#section1").show();
+                                        });
+                                        $("#hor").on("click", function () {
+                                            $("#section1").hide();
+                                            $("#section3").hide();
+                                            $("#section2").show();
+
+                                        });
+                                        $("#todes").on("click", function () {
+                                            $("#section1").hide();
+                                            $("#section2").hide();
+                                            $("#section3").show();
+                                        });
+
+                                    });
+                                </script>
+                                <script>
+                                    function myFunction() {
+                                        var fecha1 = new Date($('#fechainicial').val()).toISOString();
+                                        var fecha2 = new Date($('#fechalfinal').val()).toISOString();
+                                        console.log(JSON.stringify(fecha1))
+
+                                        $.post("/Reporte/FiltrarPasajes", { 'fecha1': fecha1, 'fecha2': fecha2 })
+                                            .done(function (response, status, jqxhr) {
+                                                location.reload();
+                                            })
+                                            .fail(function (jqxhr, status, error) {
+                                                alert("Ah ocurrido un error con el servidor, intentelo mas tarde")
+                                            });
+                                    }
+                                </script>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12" style="padding-left: 0;">
+                        <div class="form-group col-12 col-lg-2 col-md-2 col-sm-12 col-xl-2" style="text-align: initial;">
+                            <a class="btn text-white btn" onclick="myFunction()" id="filtrar" style="background-color:steelblue">Filtrar</a>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="background: bottom;border: none;margin: 20px">
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+        <div class="card" style="margin-top: 20px;text-align: center;background: white;margin-top: 50px;">
+            <h5 class="card-header">Listado de Pasajes en el Sistema</h5>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                        <!-- Agrupaciones por Lineas Horarios o sin agrupacion -->
+                        <div class="row">
+                            <div class="form-row col-12 col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                                <h6>Agrupar por :</h6>
+                            </div>
+                            <div class="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                                <div class="btn-group btn-group-lg">
+                                    <button type="button" data-section="section1" id="lin" class="btn  segmentedButton " style="background-color:steelblue;color:white">Lineas</button>
+                                    <button type="button" data-section="section2" id="hor" class="btn  segmentedButton" style="background-color:steelblue;color:white">Horarios</button>
+                                    <button type="button" data-section="section3" id="todes" class="btn segmentedButton" style="background-color:steelblue;color:white">Todos</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12" style=" height: 30vh; overflow-y: auto; margin-bottom: 1.25rem;">
+                                <div class="tab-content" id="nav-tabContent">
+                                    <!-- Foreach de pasajes vendidos -->
+
+                                    @if (ViewBag.agroupLinea == null || ViewBag.agroupHorario == null)
+                                    {
+                                        <div class="row">
+                                            <div  style="text-align:center;width:100%" >
+                                                <h5 style="text-align:center;color:steelblue">Por favor seleccione un periodo para filtrar</h5>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="content-section1" id="section1">
+                                            @foreach (var item in ViewBag.agroupLinea)
+                                            {
+
+                                                <div class="card" style="padding:10px">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb-1" style="color:steelblue">@item.nombreLinea</h5>
+                                                        <small>@item.horario</small>
+                                                    </div>
+                                                    <p class="mb-1">Pasajes Vendidos: @item.cantPasajes</p>
+                                                </div>
+
+
+
+                                            }
+                                        </div>
+                                        <div class="content-section2" id="section2">
+                                            @foreach (var item in ViewBag.agroupHorario)
+                                            {
+
+                                                <div class="card" style="padding:10px">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb-1" style="color:steelblue">@item.horario</h5>
+                                                        <small>@item.nombreLinea</small>
+                                                    </div>
+                                                    <p class="mb-1">Pasajes Vendidos: @item.cantPasajes</p>
+                                                </div>
+
+
+
+
+                                            }
+                                        </div>
+                                        <div class="content-section3" id="section3">
+                                            @foreach (var item in ViewBag.sinfiltro)
+                                            {
+
+                                                <div class="card" style="padding:10px">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb-1" style="color:steelblue">@item.nombreLinea</h5>
+                                                        <small>@item.horario</small>
+                                                    </div>
+                                                    <p class="mb-1">Pasajes Vendidos: @item.cantPasajes</p>
+                                                </div>
+
+
+
+                                            }
+
+                                        </div>
+                                            }
+
+                                            <!--  -->
+                                        </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <hr />
+
+            </div>
+        </div>
+    </div>
+</div>
+

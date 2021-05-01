@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "AsignarRoles";
+}
+
+<center>
+
+    <div class="card" style="max-width: 50.5em;position: revert;background: bottom;border:none;margin:20px">
+        <div class="form-row" style="background: white;margin-top: 100px;">
+            <div class="card-body">
+                <h4 class="card-title" style="text-align:initial;color:cornflowerblue;font-weight:600">Asignar Roles</h4>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card" style="max-width: 50.5em;margin:0 auto;padding:20px;margin-top:20px">
+        <!-- Busqueda por email se listara el nombre del usuario en el input desabilitado-->
+        <form asp-action="AsignarRoles">
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <input id="email" name="email" type="email" class="form-control" placeholder="Email del usuario name@example.com">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Buscar" class="btn btn-danger" />
+                </div>
+            </div>
+        </form>
+        <div class="form-row">
+            @if (ViewBag.buscar == null)
+            {
+                <div class="form-group col-md-8">
+                    <label for="disabledTextInput">Resultado</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="No hay Registro" disabled>
+                </div>
+
+            }
+            else
+            {
+                <div class="form-group col-md-8">
+                    <label for="disabledTextInput">Resultado</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="@ViewBag.buscar.FullName--Rol: @ViewBag.buscar.rol" disabled>
+                </div>
+            }
+        </div>
+        <form asp-action="AsignarRoles2">
+
+
+            <div class="form-group col-md-4">
+                <label for="inputState">Elegir Rol</label>
+                <select name="inputState" class="form-control">
+                    <option selected value="User">User</option>
+                    <option value="Conductor">Conductor</option>
+                    <option value="superadmin">SuperAdmin</option>
+                    <option value="admin">Administrativo</option>
+                </select>
+            </div>
+
+            <!-- la fecha se debera poder ingresar y mostrar si se elige el rol conductor-->
+            <div class="accordion-body collapse" for-field="inputState" for-value="Conductor" id="collapseExample">
+                <div class="form-group col-md-12">
+                    <label for="fechalibreta">Fecha de Libreta de Conducir</label>
+                    <input type="date" name="fechalibreta" id="fechalibreta" class="form-control">
+                </div>
+            </div>
+            @if (@ViewBag.id != null)
+            {
+                <input type="text" name="idusuario" id="idusuario" value="@ViewBag.id" hidden class="form-control">
+                <input type="submit" value="Confirmar" class="btn btn-danger" />
+            }
+
+        </form>
+    </div>
+
+        @section scripts {
+
+            <script>
+
+                $('select[name="inputState"]').change(function (event) {
+                    var selected = $(this).find('option:selected');
+                    var value = selected.attr("value");
+                    var name = $(this).attr("name");
+                    var selector = '[for-field="' + name + '"]';
+                    $('.accordion-body' + selector).addClass('collapse');
+                    var selectorForValue = selector + '[for-value="' + value + '"]';
+                    var selectedPanel = $('.accordion-body' + selectorForValue);
+                    selectedPanel.removeClass('collapse');
+                })
+            </script>
+
+        }
+
+
+
+</center>

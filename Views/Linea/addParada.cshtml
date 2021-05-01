@@ -1,0 +1,70 @@
+﻿
+
+@{
+    ViewData["Title"] = "addParada";
+}
+
+
+
+<center>
+    <br />
+    <div class="card" style="max-width: 50.5em; background: bottom; border: none; margin: 20px">
+        <div class="form-row" style="background: white;margin-top: 100px;">
+            <div class="card-body" style="display:flex;align-items:center;justify-content:space-between">
+                <h4 class="card-title" style="text-align: center;width: 100%;color:dodgerblue">Agregar Parada a la Linea</h4>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row" style=" display: flex; align-items: center; justify-content: center;">
+        <div class="" style="min-width: 40vh; border: 1px solid gray; padding: 20px; background: white">
+            <form asp-action="addParada2">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                <input type="number" name="idlinea" value="@ViewBag.idlinea" class="form-control" hidden /><br />
+
+                <div class="form-group">
+                    <label class="control-label" style="display:flex">Parada Anterior</label>
+                    <input type="text" name="paradaAnterior" value="@ViewBag.paradaAnterior.nombre" class="form-control" readonly /><br />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" style="display:flex">Tiempo desde la parada anterior</label>
+                    <input type="time" name="Tiempo" class="form-control" /><br />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" style="display:flex">Precio</label>
+                    <input type="number" name="Precio" class="form-control" /><br />
+                </div>
+
+                <div class="form-group">
+                    <label for="FechaDeCaducidad" style="display:flex">Fecha de caducidad</label>
+                    <input type="date" name="FechaDeCaducidad" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" style="display:flex">Nueva parada</label>
+                    <select name="ParadaSiguiente" class="form-control" asp-items="ViewBag.ParadasList">
+                        <option value="">-- Select Parada --</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <a asp-action="ListarLineas" class="btn btn-secondary ">Volver al Listar</a>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="submit" value="Agregar Parada" class="btn btn-primary btn-block" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</center>

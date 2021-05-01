@@ -1,0 +1,57 @@
+﻿@model Models.Entities.DtoComprarPasaje;
+@{
+    ViewData["Title"] = "ComprarPasaje";
+}
+
+
+
+<center>
+    <div class="card text-white bg-dark" style="max-width: 80.5em;margin-top: 6vh; height: 20vh;">
+        <div class="card-body">
+            <h4 class="card-title" style="text-align: initial; font-family: fantasy; font-size: 2rem;">Comprar Pasaje</h4>
+            <p class="card-text" style="text-align: initial;">Ventas de pasajes de maneras mas rapida y efectiva que todas las demas plataformas.</p>
+        </div>
+    </div>
+    <div class="card text-white bg-dark" style="max-width: 80.5em;margin:0 auto;padding:20px;margin-top:20px">
+        <form asp-action="SeleccionarViaje">
+
+            <div class="form-group">
+                <label class="control-label">Origen</label>
+                <select name="origen" class="form-control" asp-items="ViewBag.ListaParadas">
+                    <option value="">-- seleccione Parada --</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Destino</label>
+                <select name="fin" class="form-control" asp-items="ViewBag.ListaParadas">
+                    <option value="">-- seleccione Parada --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect2" style="width: 100%; font-size: 17px; font-weight: 600;">Dia del Viaje</label>
+
+                <div class="form-group">
+                    <label asp-for="fecha" class="control-label"></label>
+                    <input asp-for="fecha" class="form-control" />
+                    <span asp-validation-for="fecha" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group">
+
+                <div class="modal-footer">
+                    <a class="btn btn-secondary" href="@Url.Action("Index", "Home")">
+                        Volver
+                    </a>
+                    <input type="submit" value="Siguiente" class="btn btn-primary" />
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</center>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Models.Entities.Parada>
+
+@{
+    ViewData["Title"] = "VerParadas";
+}
+<br />
+<div class="card" style="background: bottom; border: none; margin: 20px">
+    <div class="form-row" style="background: white;margin-top: 100px;">
+        <div class="card-body" style="display:flex;align-items:center;justify-content:space-between">
+            <h4 class="card-title">Lista de Paradas en la Linea </h4>
+            <a class="btn btn-primary" asp-action="addParada" asp-route-id="@ViewBag.idLinea">
+                Add Paradas
+            </a>
+        </div>
+    </div>
+</div>
+<br />
+
+
+<div class="table-responsive" style="margin:20px">
+    <table class="table table-bordered table-condensed table-striped table-hover sortable" style="width:95%">
+        <thead style="background: royalblue; color: white;">
+            <tr style="text-align:center">
+                <th>
+                    @Html.DisplayNameFor(model => model.nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.geoReferencia)
+                </th>
+                <th>
+                    Precios de Parada
+                </th>
+            </tr>
+        </thead>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No hay Paradas en esta Linea aun.</td>
+            </tr>
+        }
+        else
+        {
+            <tbody>
+
+                @for (int i = 0; i < ViewBag.paradas.Count; i++)
+                {
+                    <tr style="background:white">
+                        <td>
+                            @ViewBag.paradas[i].nombre
+                        </td>
+                        <td>
+                            @ViewBag.paradas[i].geoReferencia
+                        </td>
+                        <td>
+                            <a class="btn btn-success" asp-action="VerPrecios" asp-route-id="@ViewBag.paradaAnterior[i].idAnterior">Ver Precios</a>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        }
+    </table>
+</div>

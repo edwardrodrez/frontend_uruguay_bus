@@ -1,0 +1,64 @@
+﻿@model Models.Entities.Horario
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<center>
+    <br />
+    <div class="card" style="max-width: 50.5em; background: bottom; border: none; margin: 20px">
+        <div class="form-row" style="background: white;margin-top: 100px;">
+            <div class="card-body" style="display:flex;align-items:center;justify-content:space-between">
+                <h4 class="card-title" style="text-align: center;width: 100%;color:dodgerblue">Agregar Nuevo Horario</h4>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row" style=" display: flex; align-items: center; justify-content: center;">
+        <div class="" style="min-width: 40vh; border: 1px solid gray; padding: 20px; background: white">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="hora" class="control-label" style="display:flex"></label>
+                    <input name="hora" type="time" class="form-control" />
+                    <span asp-validation-for="hora" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" style="display:flex">Linea</label>
+                    <select name="idlinea" class="form-control" asp-items="ViewBag.lineaList">
+                        <option value="">-- Select Parada --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" style="display:flex">Vehiculo</label>
+                    <select name="idvehiculo" class="form-control" asp-items="ViewBag.VehiculoList">
+                        <option value="">-- Select Parada --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" style="display:flex">Conductor</label>
+                    <select name="idusuario" class="form-control" asp-items="ViewBag.conductoresList">
+                        <option value="">-- Select Parada --</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <a asp-action="ListarHorarios" class="btn btn-secondary ">Volver al Listar</a>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="submit" value="Crear" class="btn btn-primary btn-block" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</center>

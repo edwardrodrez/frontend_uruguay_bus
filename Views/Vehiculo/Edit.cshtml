@@ -1,0 +1,67 @@
+﻿@model Models.Entities.Vehiculo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<center>
+    <br />
+    <div class="card" style="max-width: 50.5em; background: bottom; border: none; margin: 20px">
+        <div class="form-row" style="background: white;margin-top: 100px;">
+            <div class="card-body" style="display:flex;align-items:center;justify-content:space-between">
+                <h4 class="card-title" style="text-align: center;width: 100%;color:cadetblue">Editar Vehiculo</h4>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row" style=" display: flex; align-items: center; justify-content: center;">
+        <div class="" style="min-width: 40vh; border: 1px solid gray; padding: 20px; background: white">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input asp-for="idVehiculo" class="form-control" type="hidden" />
+
+                <div class="form-group">
+                    <label asp-for="matricula" class="control-label" style="display:flex"></label>
+                    <input asp-for="matricula" class="form-control" />
+                    <span asp-validation-for="matricula" class="text-danger"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="modelo" class="control-label" style="display:flex"></label>
+                        <input asp-for="modelo" class="form-control" />
+                        <span asp-validation-for="modelo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="marca" class="control-label" style="display:flex"></label>
+                        <input asp-for="marca" class="form-control" />
+                        <span asp-validation-for="marca" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="cantAsientos" class="control-label" style="display:flex"></label>
+                    <input asp-for="cantAsientos" class="form-control" />
+                    <span asp-validation-for="cantAsientos" class="text-danger"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <a asp-action="ListarVehiculos" class="btn btn-secondary ">Volver</a>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</center>

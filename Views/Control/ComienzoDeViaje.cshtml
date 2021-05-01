@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Models.Entities.Viaje>
+@{
+    ViewData["Title"] = "ComienzoDeViaje";
+}
+
+    <div class="toast ml-auto" role="alert" data-delay="700" data-autohide="false" style="position: absolute; top: 100px; right: 10px;">
+        <div class="toast-header">
+            <strong class="mr-auto text-primary">Comenzando el Viaje...</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body"> En un momento redireccionaremos a Verificar Pasaje. </div>
+    </div>
+
+
+    <center>
+        <div class="card" style="max-width: 50.5em;position: revert;background: bottom;border:none;margin:20px">
+            <div class="form-row" style="background: white;margin-top: 100px;">
+                <div class="card-body">
+                    <h4 class="card-title" style="text-align:initial;color:cornflowerblue;font-weight:600">Comienzo de Viaje</h4>
+                    <p class="card-text">Aqui encontraras tus viajes asignados y podras darle a comenzar al momento de empezar el recorrido.</p>
+                </div>
+            </div>
+        </div>
+    </center>
+
+
+        <div class="card" style="max-width: 50.5em;margin: 0 auto;margin-top: 20px;background: bottom;border:none">
+
+            <!-- listado de los Viajas del sistema-->
+            <div class="form-row" style="margin: 20px;background:white;padding:20px">
+                <div style="text-align: inherit; text-align: initial;font-size: 20px;font-weight: 700;padding:20px;color:tomato">
+                    Viajes Asignados
+                </div>
+                <div class="col-12">
+                    <div class="list-group" id="list-tab" role="tablist" style="height: 40vh; overflow-y: auto;">
+                        @if (Model.Count() == 0)
+                        {
+                            <p colspan="10">No tienes Viajes Asignados.</p>
+                        }
+                        else
+                        {
+                            @foreach (var item in Model)
+                            {
+                                @if (item.estado)
+                                {
+                                    <div class="card" style="padding:20px;background-color:steelblue"><div style="text-align: inherit; text-align: initial;font-size: 17px;font-weight: 600;color:white">@Html.DisplayFor(modelItem => item.Horario.linea.nombre) (Este Viaje ya se encuentra en curso)</div><pre></pre><div style="width:100%;display:flex;justify-content:space-between"><div style="color:white">@Html.DisplayFor(modelItem => item.Horario.hora)</div><div style="color:white">Vehiculo Asignado : @Html.DisplayFor(modelItem => item.Horario.vehiculo.matricula)</div></div></div>
+                                }
+                                else
+                                {
+                                    <div class="card" style="padding:20px"><div style="text-align: inherit; text-align: initial;font-size: 17px;font-weight: 600;">@Html.DisplayFor(modelItem => item.Horario.linea.nombre)</div><pre></pre><div style="width:100%;display:flex;justify-content:space-between"><div>@Html.DisplayFor(modelItem => item.Horario.hora)</div><div>Vehiculo Asignado : @Html.DisplayFor(modelItem => item.Horario.vehiculo.matricula)</div></div><pre></pre><div style="text-align:center"><a class="btn btn-danger" id="agregar" asp-action="Comienzo" asp-route-id="@item.idViaje">Comenzar Viaje</a></div> </div>
+                                }
+
+
+                            }
+                        }
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary ">Volver</a>
+                </div>
+            </div>
+
+
+            @section scripts {
+                <script>
+                    $(document).ready(function () {
+                        $('#agregar').on('click', function (e) {
+                            $('.toast').toast('show');
+                        })
+                    })
+                </script>
+            }
+        </div>
+
+
+
+
+
+
+

@@ -1,0 +1,29 @@
+﻿<div class="card" style=" margin-top: 20px;height: 30vh;">
+
+    <div class="card-body">
+        @if ((bool)TempData["bol"])
+        {
+            <h5 class="card-title">Compra realizada con exito</h5>
+            <p class="card-text">Usted recibirá en breve un correo con su pasaje .</p>
+            <p class="card-text">Que tenga un buen día.</p>
+            <a class="btn btn-danger" href="@Url.Action("Index", "Home")">
+                Volver a Inicio
+            </a>
+            <a class="btn btn-danger" href="@Url.Action("ComprarPasaje", "Home")">
+                volver a intentar
+            </a>
+        }
+        else
+        {
+            <h5 class="card-title">La Compra de su boleto NO se a fallado</h5>
+            <p class="card-text">Esto se debe a que el pago no se a realizado con éxito.</p>
+            <p class="card-text">Puede volver a intentarlo o regresar a inicio.</p>
+            <a class="btn btn-danger" href="@Url.Action("ComprarPasaje", "Home")">
+                volver a intentar
+            </a>
+            <a class="btn btn-danger" href="@Url.Action("Index", "Home")">
+                Volver a Inicio
+            </a>
+        }
+    </div>
+</div>
